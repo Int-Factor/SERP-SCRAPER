@@ -47,7 +47,7 @@ def bot_random_sleep():
 
 # Read column H (name) in the result_combined_200.CSV file
 # read specific columns of csv file using Pandas
-df = pd.read_csv("updated_result_combined_200.csv", nrows=100)
+df = pd.read_csv("updated_result_combined_200.csv", nrows=5)
 
 from pprint import pprint
 df_as_dict_list = df.to_dict(orient='records')
@@ -75,11 +75,12 @@ for i in df_as_dict_list:
 
     for items in required_divs:
 
-        urls = items.find('div', attrs = {'class' : 'yuRUbf'})(href=True)
-        for x in urls:
-            req_urls = x['href']
+        humanised_urls = items.find('div', attrs = {'class' : 'yuRUbf'})(href=True)
+        for x in humanised_urls:
+            req_humanised_urls = x['href']
         
-        humanised_url = items.find('h3', attrs ={'class' : 'LC20lb MBeuO DKV0Md'})
+
+        title = items.find('h3', attrs ={'class' : 'LC20lb MBeuO DKV0Md'})
         description = items.find('div', attrs = {'class' : 'lEBKkf'})
         
         if description is not None:
@@ -91,10 +92,10 @@ for i in df_as_dict_list:
             else:
                 description = None
         
-        if humanised_url:
-            humanised_url = humanised_url.text
+        if title:
+            title = title.text
         else:
-            humanised_url = None
+            title = None
 
 
         # if description is not None:
@@ -103,15 +104,15 @@ for i in df_as_dict_list:
         #     description = None
 
         
-        print(req_urls)
-        print(humanised_url)
+        print(req_humanised_urls)
+        print(title)
         print(description)
         
         temp_dict = {}
         
         # saving these in the dictionary
-        temp_dict['url'] = req_urls
-        temp_dict['humanised_url'] = humanised_url
+        temp_dict['humanised_url'] = req_humanised_urls
+        temp_dict['title'] = title
         temp_dict['description'] = description
         
         serp_data_page_1.append(temp_dict)
@@ -124,4 +125,4 @@ pprint(df_as_dict_list)
 # convert to dataframe and then to csv
 df_new = pd.DataFrame(df_as_dict_list)
 
-df_new.to_csv('trial_results_3.csv', index=False, encoding='utf-8')
+df_new.to_csv('trial_results_4.csv', index=False, encoding='utf-8')
