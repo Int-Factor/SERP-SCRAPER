@@ -73,14 +73,26 @@ for i in df_as_dict_list:
     # CREATE EMPTY DICTIONARY
     serp_page_dict = {}
 
+    ''' ### The one on top (In black above blue text) ###'''
+    humanised_urls = main_div.find_all('div', attrs = {'class' : 'TbwUpd NJjxre'})
+    for x in humanised_urls:
+        if humanised_urls:
+            req_humanised_url = x.text
+        else:
+            req_humanised_url = None
+
     for items in required_divs:
 
-        humanised_urls = items.find('div', attrs = {'class' : 'yuRUbf'})(href=True)
-        for x in humanised_urls:
-            req_humanised_urls = x['href']
+        '''### Link that opens after clicking on Blue text ###'''
+        urls = items.find('div', attrs = {'class' : 'yuRUbf'})(href=True)
         
-
+        for x in urls:
+            req_url = x['href']
+        
+        '''### Blue text ###'''
         title = items.find('h3', attrs ={'class' : 'LC20lb MBeuO DKV0Md'})
+
+        '''### Descrpition ###'''
         description = items.find('div', attrs = {'class' : 'lEBKkf'})
         
         if description is not None:
@@ -103,15 +115,16 @@ for i in df_as_dict_list:
         # else:
         #     description = None
 
-        
-        print(req_humanised_urls)
+        print(req_humanised_url)
+        print(req_url)
         print(title)
         print(description)
         
         temp_dict = {}
         
         # saving these in the dictionary
-        temp_dict['humanised_url'] = req_humanised_urls
+        temp_dict['humanised_url'] = req_humanised_url
+        temp_dict['url'] = req_url
         temp_dict['title'] = title
         temp_dict['description'] = description
         
@@ -125,4 +138,4 @@ pprint(df_as_dict_list)
 # convert to dataframe and then to csv
 df_new = pd.DataFrame(df_as_dict_list)
 
-df_new.to_csv('trial_results_4.csv', index=False, encoding='utf-8')
+df_new.to_csv('trial_results_5.csv', index=False, encoding='utf-8')
