@@ -28,14 +28,14 @@ import csv
 
 #Driver related to automate browser
 # GECODRIVER 
-Path = "geckodriver.exe"
-driver = webdriver.Firefox(executable_path = Path)
+# Path = "geckodriver.exe"
+# driver = webdriver.Firefox(executable_path = Path)
 
 '''WRITE THIS FOR RUNNING GECKODRIVER IN HEADLESS MODE'''
 
-# options = FirefoxOptions()
-# options.add_argument("--headless")
-# driver = webdriver.Firefox(options=options)
+options = FirefoxOptions()
+options.add_argument("--headless")
+driver = webdriver.Firefox(options=options)
 
 '''HEADLESS CODE ENDS HERE'''
 
@@ -47,7 +47,7 @@ def bot_random_sleep():
 
 # Read column H (name) in the result_combined_200.CSV file
 # read specific columns of csv file using Pandas
-df = pd.read_csv("updated_result_combined_200.csv", nrows=5)
+df = pd.read_csv("updated_result_combined_200.csv", nrows=100)
 
 from pprint import pprint
 df_as_dict_list = df.to_dict(orient='records')
@@ -138,4 +138,4 @@ pprint(df_as_dict_list)
 # convert to dataframe and then to csv
 df_new = pd.DataFrame(df_as_dict_list)
 
-df_new.to_csv('trial_results_5.csv', index=False, encoding='utf-8')
+df_new.to_csv('trial_results_6.csv', index=False, encoding='utf-8')

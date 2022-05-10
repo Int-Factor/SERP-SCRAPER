@@ -7,7 +7,7 @@ import time
 
 from zmq import proxy
 
-proxy_ip_port = '24.172.34.114:49920'
+proxy_ip_port = '92.240.206.207'
 
 proxy = Proxy()
 proxy.proxy_type = ProxyType.MANUAL
